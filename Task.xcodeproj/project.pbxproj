@@ -54,14 +54,54 @@
 		6351DE1D227740D000C26EA1 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				6351DE1E227740D000C26EA1 /* AppDelegate.swift */,
-				6351DE20227740D000C26EA1 /* ViewController.swift */,
-				6351DE22227740D000C26EA1 /* Main.storyboard */,
-				6351DE25227740D600C26EA1 /* Assets.xcassets */,
-				6351DE27227740D600C26EA1 /* LaunchScreen.storyboard */,
+				6351DE34227742D300C26EA1 /* Resources */,
+				6351DE33227742CA00C26EA1 /* View Controllers */,
+				6351DE32227742B400C26EA1 /* Model Controllers */,
+				6351DE31227742B000C26EA1 /* Models */,
+				6351DE30227742A900C26EA1 /* Views */,
 				6351DE2A227740D600C26EA1 /* Info.plist */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		6351DE30227742A900C26EA1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6351DE22227740D000C26EA1 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6351DE31227742B000C26EA1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6351DE32227742B400C26EA1 /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
+		6351DE33227742CA00C26EA1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6351DE20227740D000C26EA1 /* ViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		6351DE34227742D300C26EA1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6351DE27227740D600C26EA1 /* LaunchScreen.storyboard */,
+				6351DE1E227740D000C26EA1 /* AppDelegate.swift */,
+				6351DE25227740D600C26EA1 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

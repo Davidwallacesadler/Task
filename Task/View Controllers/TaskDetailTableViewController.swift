@@ -8,75 +8,79 @@
 
 import UIKit
 
-class TaskDetailTableViewController: UITableViewController {
+class TaskDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+    
+    // MARK: - View LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        dueDateTextField.inputView = dueDatePicker
+        updateViews()
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    // MARK: - Internal Properties
+    
+    var task: Task? {
+        didSet {
+            // added a property observer so that when we pass a task from the taskListVC the update views function is called to reflect the desired task properties.
+            updateViews()
+        }
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    var dueDateValue: Date?
+    
+    // MARK: - Outlets
+    
+    @IBOutlet var dueDatePicker: UIDatePicker!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var dueDateTextField: UITextField!
+    @IBOutlet weak var notesTextView: UITextView!
+    
+    // MARK: - Actions
+    
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        guard let selectedTask = task, let taskName = nameTextField.text, let taskNotes = notesTextView.text, let taskDueOn = dueDateValue else {
+            TaskController.shared.add(taskWithName: nameTextField.text ?? "Task", notes: notesTextView.text, due: dueDateValue ?? nil)
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        TaskController.shared.update(task: selectedTask, name: taskName, notes: taskNotes, due: taskDueOn)
+        self.navigationController?.popViewController(animated: true)
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
+        dueDateTextField.text = sender.date.stringValue()
+        dueDateValue = sender.date
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    // THIS IS NOT GETTING CALLED?
+    // JUST USED METHOD IN VIEW DID LOAD -- SEE WHAT I DID WRONG HERE -- ITS NOT GETTING CALLED ANYWHERE SO THATS PROBABLY THE PROBLEM
+//    @IBAction func userTappedView(_ sender: Any) {
+//        self.nameTextField.resignFirstResponder()
+//        self.dueDateTextField.resignFirstResponder()
+//        self.nameTextField.resignFirstResponder()
+//    }
+    
+    
+    // MARK: - Internal Methods
+    
+    
+    
+    private func updateViews() {
+        guard let selectedTask = task, isViewLoaded else { return }
+        nameTextField.text = selectedTask.name
+        dueDateTextField.text = selectedTask.due?.stringValue()
+        notesTextView.text = selectedTask.notes
+        self.navigationItem.title = selectedTask.name
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    
     /*
     // MARK: - Navigation
 

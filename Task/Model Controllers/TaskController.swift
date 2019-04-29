@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class TaskController {
     
@@ -25,41 +26,50 @@ class TaskController {
     
     var tasks: [Task] = []
     
-    // MARK: - Mock Data
-    
-    var taskData: [Task] {
-        get {
-            let now = Date.init()
-            let later = Date.distantFuture
-            let task1 = Task(name: "Eat", notes: "I need to eat food", due: now)
-            task1.isComplete = true
-            let task2 = Task(name: "Shit", notes: "I need to shit at some point", due: later)
-            let mockTasks : [Task] = [task1, task2]
-            return mockTasks
-        }
-    }
-    
     
     // MARK: - CRUD
     
     func add(taskWithName name: String, notes: String?, due: Date?) {
-        
+        _ = Task(name: name, notes: notes, due: due)
+        saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
     func update(task: Task, name: String, notes: String?, due: Date?) {
-        
+        task.name = name
+        task.notes = notes
+        task.due = due
+        saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
     func remove(task: Task) {
-        
+        task.managedObjectContext?.delete(task)
+        saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
-    func saveToPersistentStore() {
-        
+    func toggleIsCompleteFor(task: Task) {
+        if task.isComplete == true {
+            task.isComplete = false
+        } else {
+            task.isComplete = true
+        }
+        saveToPersistentStore()
+    }
+    
+    // MARK: - Persistence
+    
+    private func saveToPersistentStore() {
+        do {
+            try CoreDataStack.context.save()
+        } catch {
+            print("There was an error saving Managed Object Context. Items not saved: \(error)")
+        }
     }
     
     func fetchTasks() -> [Task] {
-        return taskData
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        return (try? CoreDataStack.context.fetch(request)) ?? []
     }
-    
 }

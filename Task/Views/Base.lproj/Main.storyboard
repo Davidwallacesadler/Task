@@ -34,14 +34,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" id="IXW-qs-AhR">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="70" id="IXW-qs-AhR" customClass="ButtonTableViewCell" customModule="Task" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IXW-qs-AhR" id="eis-Fz-Vjw">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPz-ci-cYc">
+                                            <rect key="frame" x="16" y="22.5" width="240" height="25"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TsX-ML-TcU">
+                                            <rect key="frame" x="256" y="11" width="48" height="48"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="TsX-ML-TcU" secondAttribute="height" multiplier="1:1" id="Fum-ua-oDl"/>
+                                                <constraint firstAttribute="width" constant="48" id="hBF-GD-ZE1"/>
+                                                <constraint firstAttribute="height" constant="48" id="y34-bN-tc4"/>
+                                            </constraints>
+                                            <state key="normal" image="buttonNotChecked"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="IXW-qs-AhR" eventType="touchUpInside" id="Wqa-On-8qr"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="WPz-ci-cYc" firstAttribute="leading" secondItem="eis-Fz-Vjw" secondAttribute="leadingMargin" id="Hcn-Eu-2Ps"/>
+                                        <constraint firstItem="TsX-ML-TcU" firstAttribute="leading" secondItem="WPz-ci-cYc" secondAttribute="trailing" id="QS5-Bm-9bJ"/>
+                                        <constraint firstItem="TsX-ML-TcU" firstAttribute="trailing" secondItem="eis-Fz-Vjw" secondAttribute="trailingMargin" id="Tz0-5J-lpd"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="TsX-ML-TcU" secondAttribute="bottom" id="clY-Ep-Xjv"/>
+                                        <constraint firstItem="TsX-ML-TcU" firstAttribute="top" secondItem="eis-Fz-Vjw" secondAttribute="topMargin" id="iaZ-cQ-9RM"/>
+                                        <constraint firstItem="WPz-ci-cYc" firstAttribute="centerY" secondItem="eis-Fz-Vjw" secondAttribute="centerY" id="lKB-2a-Qdt"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="completeButton" destination="TsX-ML-TcU" id="zfN-wA-FWc"/>
+                                    <outlet property="primaryLabel" destination="WPz-ci-cYc" id="1ds-ED-gSL"/>
                                     <segue destination="e5h-G4-61M" kind="show" identifier="toShowTask" id="R4y-hp-lLs"/>
                                 </connections>
                             </tableViewCell>
@@ -61,7 +90,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tdJ-BR-chk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201" y="136"/>
+            <point key="canvasLocation" x="200.625" y="135.21126760563379"/>
         </scene>
         <!--Task-->
         <scene sceneID="xkt-zX-71x">
@@ -71,6 +100,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <gestureRecognizers/>
                         <sections>
                             <tableViewSection headerTitle="Name:" id="Yrb-Xm-bAA">
                                 <cells>
@@ -84,7 +114,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter a name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ky4-4W-ClX">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -110,7 +140,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter a due date..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="syV-Lw-EdM">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="36.5"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -136,7 +166,7 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Notes..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="04e-3h-S3M">
                                                     <rect key="frame" x="16" y="11" width="288" height="212"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
@@ -154,18 +184,51 @@
                         <connections>
                             <outlet property="dataSource" destination="e5h-G4-61M" id="qnM-Go-ov5"/>
                             <outlet property="delegate" destination="e5h-G4-61M" id="Mle-sz-5vN"/>
+                            <outletCollection property="gestureRecognizers" destination="xx0-GZ-B72" appends="YES" id="dqZ-qQ-wWb"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Task" id="Bgq-SH-LiM">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="QDo-KB-0eG"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="P2Y-GH-gYc"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="QDo-KB-0eG">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="e5h-G4-61M" id="tgw-tg-WJx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="P2Y-GH-gYc">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="e5h-G4-61M" id="Z0D-TK-joZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dueDatePicker" destination="iB6-4S-8QY" id="dhv-Z8-Jpv"/>
+                        <outlet property="dueDateTextField" destination="syV-Lw-EdM" id="zBa-KB-dDk"/>
+                        <outlet property="nameTextField" destination="Ky4-4W-ClX" id="W70-Pw-uQu"/>
+                        <outlet property="notesTextView" destination="04e-3h-S3M" id="pBN-Ih-wyP"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vkx-tp-XjE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="iB6-4S-8QY">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <date key="date" timeIntervalSinceReferenceDate="578254672.45098305">
+                        <!--2019-04-29 18:17:52 +0000-->
+                    </date>
+                    <connections>
+                        <action selector="datePickerValueChanged:" destination="e5h-G4-61M" eventType="valueChanged" id="KpW-pe-hsT"/>
+                    </connections>
+                </datePicker>
+                <gestureRecognizer id="xx0-GZ-B72" customClass="UITapGestureRecognizer">
+                    <connections>
+                        <action selector="userTappedView:" destination="e5h-G4-61M" id="fR1-bg-XvA"/>
+                    </connections>
+                </gestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1057.5" y="134.1549295774648"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="buttonNotChecked" width="217" height="217"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="R4y-hp-lLs"/>
     </inferredMetricsTieBreakers>

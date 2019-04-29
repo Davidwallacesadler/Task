@@ -9,12 +9,18 @@
 import UIKit
 
 class TaskListTableViewController: UITableViewController {
+    
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
 
-    // MARK: - Table view data source
+    // MARK: - TableView Data Source Methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -30,26 +36,19 @@ class TaskListTableViewController: UITableViewController {
         cell.textLabel?.text = "Task: '\(task.name ?? "Task")' CompletionStatus: '\(task.isComplete)'"
         return cell
     }
+    
+    // MARK: - TableView Editing
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            let selectedTaskIndex = indexPath.row
+            TaskController.shared.tasks.remove(at: selectedTaskIndex)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
